@@ -1,6 +1,6 @@
-guard 'coffeescript'
+guard 'coffeescript', input: '.', output:'public'
 
-guard 'haml' do
+guard 'haml', input: '.', output:'public' do
   watch(/^.+(\.html\.haml)/)
 end
 
