@@ -1,2 +1,3 @@
 /public/**
 !/public/vendor/
+node_modules/
