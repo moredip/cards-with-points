@@ -1,7 +1,7 @@
-guard 'coffeescript', input: '.', output:'public'
+guard 'coffeescript', input:'js', output:'public'
 
 guard 'haml', input: '.', output:'public' do
-  watch(/^.+(\.html\.haml)/)
+  watch(/^[^\.].+(\.html\.haml)/)
 end
 
 guard 'sass',
