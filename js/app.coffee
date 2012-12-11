@@ -14,6 +14,16 @@ global.NewCardView = Backbone.View.extend
     @$('textarea').val()
 
 
+global.CardWallView = Backbone.View.extend
+  el: "#card-wall"
+
+  initialize: ->
+    @model.on 'change', @render, @
+
+  render: ->
+    @$el.find( '.title' ).text( @model.get('title') )
+    @
+
 global.createMainController = ({newCardView,cardsCollection})->
   newCardView.on 'create-card', ->
     cardsCollection.add
