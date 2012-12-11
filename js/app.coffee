@@ -12,3 +12,11 @@ global.NewCardView = Backbone.View.extend
 
   getText: ->
     @$('textarea').val()
+
+
+global.createMainController = ({newCardView,cardsCollection})->
+  newCardView.on 'create-card', ->
+    cardsCollection.add
+      text: newCardView.getText()
+
+
