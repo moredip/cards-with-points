@@ -1,5 +1,11 @@
-global.Card = Backbone.Model.extend
-  foo: -> 'asdf'
+global.Card = Backbone.Model
+
+global.Cards = Backbone.Collection
+
+global.CardWall = Backbone.Model.extend
+  defaults:
+    title: 'Card Wall'
+    cards: new Cards
 
 global.NewCardView = Backbone.View.extend
   el: "section#new-card"

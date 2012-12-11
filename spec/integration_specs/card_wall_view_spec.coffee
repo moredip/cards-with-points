@@ -15,5 +15,6 @@ describe 'CardWallView', ->
     model.set('title','the wall title')
     expect( $( '.title', view.$el ) ).toHaveText( 'the wall title' )
     
-  it 'renders each card in the cards collection', ->
+  it 'renders each card in the cards collection', 
+    pending()
 
