@@ -1,3 +1,6 @@
+global.Card = Backbone.Model.extend
+  foo: -> 'asdf'
+
 global.NewCardView = Backbone.View.extend
   el: "section#new-card"
 
