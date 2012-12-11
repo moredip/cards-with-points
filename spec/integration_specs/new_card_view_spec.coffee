@@ -15,4 +15,4 @@ describe 'NewCardView', ->
 
     $('section#new-card button').click()
 
-    expect( eventSpy ).toHaveBeenCalled()
+    expect( eventSpy ).toHaveBeenCalledWith( view )

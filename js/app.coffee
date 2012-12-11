@@ -6,4 +6,4 @@ global.NewCardView = Backbone.View.extend
 
 
   onClickButton: ->
-    @trigger( 'create-card' )
+    @trigger( 'create-card', @ )
