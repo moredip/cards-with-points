@@ -6,7 +6,9 @@ $ ->
   newCardView = new NewCardView
   newCardView.on 'create-card', -> console.log 'new card being added'
 
+  cardWall = new CardWall
+
 
   global.createMainController
     newCardView:newCardView
-    createCardModel: (args...)-> new Card(args...)
+    cardWall: cardWall

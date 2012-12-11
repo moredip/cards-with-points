@@ -7,6 +7,10 @@ global.CardWall = Backbone.Model.extend
     title: 'Card Wall'
     cards: new Cards
 
+  addCard: (args)->
+    @get('cards').add( args )
+
+
 global.NewCardView = Backbone.View.extend
   el: "section#new-card"
 
@@ -30,9 +34,9 @@ global.CardWallView = Backbone.View.extend
     @$el.find( '.title' ).text( @model.get('title') )
     @
 
-global.createMainController = ({newCardView,cardsCollection})->
+global.createMainController = ({newCardView,cardWall})->
   newCardView.on 'create-card', ->
-    cardsCollection.add
+    cardWall.addCard
       text: newCardView.getText()
 
 
