@@ -1,0 +1,1 @@
+../../node_modules/jasmine-node/lib/jasmine-node/jasmine-2.0.0.rc1.js

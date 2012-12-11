@@ -1,2 +1,1 @@
-$ ->
-  alert('hello world')
+global.NewCardView = Backbone.View.extend
