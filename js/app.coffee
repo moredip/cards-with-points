@@ -4,6 +4,8 @@ global.NewCardView = Backbone.View.extend
   events:
     "click button": "onClickButton"
 
-
   onClickButton: ->
     @trigger( 'create-card', @ )
+
+  getText: ->
+    @$('textarea').val()

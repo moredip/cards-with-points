@@ -10,9 +10,12 @@ describe 'NewCardView', ->
     expect( view.$el ).toBe( 'section#new-card' )
 
   it 'fires a create-card event when the add card button is clicked', ->
-    eventSpy = sinon.spy()
-    view.on 'create-card', eventSpy
+    view.on( 'create-card', eventSpy = sinon.spy() )
 
     $('section#new-card button').click()
 
     expect( eventSpy ).toHaveBeenCalledWith( view )
+
+  it 'exposes the text area text', ->
+    $('section#new-card textarea').val('I AM A NEW CARD')
+    expect( view.getText() ).toBe( 'I AM A NEW CARD' )
