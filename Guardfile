@@ -6,8 +6,8 @@ guard 'haml', input: '.', output:'public' do
 end
 
 guard 'sass',
-  #:input => 'bundle/stylesheets/sass',
-  #:output => 'bundle/stylesheets/css',
+  :input => 'stylesheets',
+  :output => 'public/css',
   :smart_partials => true,
-  #:load_paths => ['bundle/stylesheets/sass'],
-  :style => :compressed
+  :load_paths => ['stylesheets']
+  #:style => :compressed
