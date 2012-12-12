@@ -9,7 +9,15 @@ global.CardWall = Backbone.Model.extend
 
   addCard: (args)->
     @get('cards').add( args )
+    @trigger('change:cards')
 
+global.CardView = Backbone.View.extend
+  tagName: 'div'
+  className: 'card'
+
+  render: ->
+    @$el.html( @model.get('text') )
+    @
 
 global.NewCardView = Backbone.View.extend
   el: "section#new-card"
@@ -29,10 +37,20 @@ global.CardWallView = Backbone.View.extend
 
   initialize: ->
     @model.on 'change', @render, @
+    @model.on 'change:cards', @refreshCards, @
+
+    @render()
+    @refreshCards()
 
   render: ->
     @$el.find( '.title' ).text( @model.get('title') )
-    @
+    @el
+
+  refreshCards: ->
+    @$el.find( '.card' ).remove()
+    container = @el
+    @model.get('cards').each (card) ->
+      (new CardView(model:card)).render().$el.appendTo(container)
 
 global.createMainController = ({newCardView,cardWall})->
   newCardView.on 'create-card', ->

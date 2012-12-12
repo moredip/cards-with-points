@@ -18,3 +18,9 @@ describe 'CardWall', ->
     newCard = cardWall.get('cards').at(0)
     expect( newCard.get('text') ).toBe('new card text')
 
+
+  it 'fires a change:cards event when a card is added', ->
+    eventSpy = sinon.spy()
+    cardWall.on('change:cards',eventSpy)
+    cardWall.addCard()
+    expect( eventSpy.called ).toBe(true)
