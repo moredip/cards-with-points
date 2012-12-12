@@ -16,7 +16,8 @@ global.CardView = Backbone.View.extend
   className: 'card'
 
   render: ->
-    @$el.html( @model.get('text') )
+    @$el.empty()
+    @$el.append( $('<p>').html( @model.get('text') ) )
     @
 
 global.NewCardView = Backbone.View.extend
