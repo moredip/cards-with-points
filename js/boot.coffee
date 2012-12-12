@@ -9,8 +9,8 @@ $ ->
   cardWall = new CardWall
   cardWallView = new CardWallView(model:cardWall)
 
-  cardWall.addCard(text:'a sample card to get you going')
-  cardWall.addCard(text:'another card with some text')
+  cardWall.addCard(text:'a sample card to get you going',vote:-1)
+  cardWall.addCard(text:'another card with some text',vote:3)
 
   global.createMainController
     newCardView:newCardView

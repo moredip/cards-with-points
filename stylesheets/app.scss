@@ -7,15 +7,22 @@ body {
   color:#000;  
   background:#ffc;  
   display:inline-block;  
-  height:4em;  
   width:8em;  
-  padding:1em;  
+  padding: .6em .6em;  
   margin: 1em;
 
-  font-family:"Reenie Beanie",arial,sans-serif;  
-  font-size:180%;  
+  font-family:"Shadows Into Light Two",arial,sans-serif;  
+  font-size:140%;  
 
-  -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);  
-  -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);  
-  box-shadow: 5px 5px 7px rgba(33,33,33,.7);  
+  -moz-box-shadow:5px 5px 20px rgba(33,33,33,1);  
+  -webkit-box-shadow: 5px 5px 20px rgba(33,33,33,.7);  
+  box-shadow: 5px 5px 20px rgba(33,33,33,.7);  
+
+  p {
+    margin: 0;
+  }
+
+  .curr-vote {
+    text-align: right;
+  }
 }  

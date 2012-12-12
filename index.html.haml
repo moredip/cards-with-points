@@ -4,13 +4,20 @@
     %title Cards with Points
 
     %link(rel="stylesheet" href="css/app.css" type="text/css")
-    %link(href="http://fonts.googleapis.com/css?family=Reenie+Beanie:regular" rel="stylesheet" type="text/css")
+    %link(href="http://fonts.googleapis.com/css?family=Shadows+Into+Light+Two" rel="stylesheet" type="text/css")
     %script(src="vendor/underscore.js")
     %script(src="vendor/jquery-1.8.3.js")
+    %script(src="vendor/handlebars-1.0.rc.1.js")
     %script(src="vendor/backbone.js")
 
     %script(src="/boot.js")
     %script(src="/app.js")
+
+    %script(id="card-template" type="text/x-handlebars-template")
+      %p
+        {{text}}
+      .curr-vote
+        100
 
   %body
     %h1 Cards w. Points

@@ -15,9 +15,13 @@ global.CardView = Backbone.View.extend
   tagName: 'div'
   className: 'card'
 
+  template: Handlebars.compile """
+    <div class="curr-vote">{{vote}}</div>
+    <p>{{text}}</p>
+  """
+
   render: ->
-    @$el.empty()
-    @$el.append( $('<p>').html( @model.get('text') ) )
+    @$el.html( @template(@model.toJSON()) )
     @
 
 global.NewCardView = Backbone.View.extend

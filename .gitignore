@@ -1,3 +1,4 @@
 /public/**
 !/public/vendor/
 node_modules/
+.sass-cache/
