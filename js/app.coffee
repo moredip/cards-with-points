@@ -4,7 +4,7 @@ global.Cards = Backbone.Collection
 
 global.CardWall = Backbone.Model.extend
   defaults:
-    title: 'Card Wall'
+    title: 'My Card Wall'
     cards: new Cards
 
   addCard: (args)->
