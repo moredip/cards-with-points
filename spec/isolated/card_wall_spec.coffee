@@ -4,7 +4,7 @@ describe 'CardWall', ->
     cardWall = new CardWall
 
   it 'has a default title', ->
-    expect( cardWall.get('title') ).toBe( 'Card Wall' )
+    expect( cardWall.get('title') ).toBe( 'My Card Wall' )
 
   it 'has a cards collection', ->
     expect( cardWall.has('cards') ).toBe(true)
