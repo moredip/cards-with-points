@@ -1,5 +1,6 @@
 $background-color: #eee;
 $dark-gray: lighten(black,30%);
+$dark-gray: darken(white,10%);
 $yellow: transparentize(#ffc,0.1);
 
 $font-cursive:"Shadows Into Light Two",arial,sans-serif;  
@@ -16,14 +17,14 @@ body {
 }
 
 h1 {
-  font-size: 45pt;
+  font-size: 60pt;
 	line-height: 0.8;
 letter-spacing: -3;
 	text-align: right;
 	padding: 0;
 	margin: 0;
 	right: 0.5em;
-	color: $dark-gray;
+	color: $dark-white;
 	position: fixed;
 	z-index: -1;
 }
