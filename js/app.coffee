@@ -62,4 +62,8 @@ global.createMainController = ({newCardView,cardWall})->
     cardWall.addCard
       text: newCardView.getText()
 
+global.createCardStore = (localStorage=window.localStorage)->
+  save = (cards)->
+    localStorage.setItem()
 
+  { save }
