@@ -1,11 +1,22 @@
-global.Card = Backbone.Model
+global.Card = Backbone.Model.extend
+  defaults:
+    inEditState: false
 
-global.Cards = Backbone.Collection
+  textClicked: -> @trigger('text-edit-requested',@)
+
+global.Cards = Backbone.Collection.extend
+  model: Card
 
 global.CardWall = Backbone.Model.extend
   defaults:
     title: 'My Card Wall'
     cards: new Cards
+
+  initialize: ->
+    cards = @get('cards')
+    cards.on 'text-edit-requested', (requestedCard)->
+      cards.invoke('set','inEditState',false)
+      requestedCard.set('inEditState',true)
 
   addCard: (args)->
     @get('cards').add( args )
@@ -14,15 +25,31 @@ global.CardWall = Backbone.Model.extend
 global.CardView = Backbone.View.extend
   tagName: 'div'
   className: 'card'
+  
+  events:
+    "click p": "onClickText"
 
   template: Handlebars.compile """
     <div class="curr-vote">{{vote}}</div>
     <p>{{text}}</p>
   """
 
+  initialize: ->
+    @model.on( 'change:inEditState', @updateEditState, @ )
+
   render: ->
     @$el.html( @template(@model.toJSON()) )
+    @updateEditState
     @
+
+  updateEditState: ->
+    if @model.get('inEditState')
+      @$el.find('p').attr('contenteditable', '')
+    else
+      @$el.find('p').removeAttr('contenteditable')
+
+  onClickText: ->
+    @model.textClicked()
 
 global.NewCardView = Backbone.View.extend
   el: "section#new-card"
@@ -62,9 +89,10 @@ global.createMainController = ({newCardView,cardWall})->
     cardWall.addCard
       text: newCardView.getText()
 
+
+
 global.createCardStore = (localStorage=window.localStorage)->
   save = (cards)->
-    console.log( 'saving cards' )
     json = JSON.stringify(cards.toJSON())
     localStorage.setItem('cards',json)
   load = ()->

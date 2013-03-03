@@ -1,7 +1,8 @@
 describe 'CardWall', ->
-  cardWall = null
+  cards = cardWall = undefined
   beforeEach ->
-    cardWall = new CardWall
+    cards = new Cards
+    cardWall = new CardWall({cards})
 
   it 'has a default title', ->
     expect( cardWall.get('title') ).toBe( 'My Card Wall' )
@@ -18,9 +19,24 @@ describe 'CardWall', ->
     newCard = cardWall.get('cards').at(0)
     expect( newCard.get('text') ).toBe('new card text')
 
-
   it 'fires a change:cards event when a card is added', ->
     eventSpy = sinon.spy()
     cardWall.on('change:cards',eventSpy)
     cardWall.addCard()
     expect( eventSpy.called ).toBe(true)
+
+  it 'reacts to a card being asked to be edited by telling all other cards to conclude their editing', ->
+
+    editStates = -> cards.pluck('inEditState')
+
+    cards.add( [{},{},{},{}] )
+
+    expect( editStates() ).toEqual( [false,false,false,false] )
+
+    cards.at([2]).textClicked()
+
+    expect( editStates() ).toEqual( [false,false,true,false] )
+
+    cards.at([1]).textClicked()
+
+    expect( editStates() ).toEqual( [false,true,false,false] )
