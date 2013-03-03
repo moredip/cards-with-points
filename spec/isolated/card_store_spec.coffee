@@ -1,14 +1,52 @@
 describe 'CardStore', ->
-  it 'writes to localStorage whenever we store a card', ->
-    fakeLocalStorage = {
-      setItem: sinon.spy()
+  fakeLocalStorage = cards = store = undefined
+  emptyCards = -> new global.Cards()
+
+  createFakeLocalStorage = ->
+    underlying = {}
+    {
+      setItem: (k,v)-> underlying[k] = v
+      getItem: (k)-> underlying[k]
+      keys: ()-> _.keys( underlying )
     }
 
-    cards = new global.Cards()
+  beforeEach ->
+    fakeLocalStorage = createFakeLocalStorage()
     store = global.createCardStore(fakeLocalStorage)
-    store.save( cards )
-
-    expect( fakeLocalStorage.setItem ).toHaveBeenCalled()
 
 
-  it 'saves the cards in localStorage with the right key'
+  describe ".save", ->
+
+    it 'saves a json representation of the cards', ->
+      cards = new global.Cards([
+        { foo: 'bar' },
+        { baz: 'chirp' }
+      ])
+
+      cardsJson = cards.toJSON()
+      expect( cardsJson.length ).toBe(2)
+      
+      store.save( cards )
+
+      expect( fakeLocalStorage.keys() ).toEqual( ['cards'] )
+      expect( fakeLocalStorage.getItem('cards') ).toEqual( cardsJson )
+
+
+  describe '.load', ->
+    it 'roundtrips back whatever cards were saved', ->
+      origCards = new global.Cards([
+        { foo: 'bar' },
+        { baz: 'chirp' }
+      ])
+
+      store.save( origCards )
+
+      reloadedCards = store.load()
+      expect( reloadedCards.toJSON ).toEqual( origCards.toJSON )
+
+
+    it 'handles a store with no cards', ->
+      expect( fakeLocalStorage.getItem('cards') ).not.toBeDefined()
+      loadedCards = store.load()
+      expect( loadedCards.models ).toEqual( [] )
+      
