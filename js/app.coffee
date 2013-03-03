@@ -64,9 +64,11 @@ global.createMainController = ({newCardView,cardWall})->
 
 global.createCardStore = (localStorage=window.localStorage)->
   save = (cards)->
-    localStorage.setItem('cards',cards.toJSON())
+    console.log( 'saving cards' )
+    json = JSON.stringify(cards.toJSON())
+    localStorage.setItem('cards',json)
   load = ()->
-    json = localStorage.getItem('cards')
-    new global.Cards( json )
+    json = localStorage.getItem('cards') || "[]"
+    new global.Cards( JSON.parse(json) )
 
   { save, load }

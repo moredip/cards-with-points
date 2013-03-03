@@ -17,7 +17,7 @@ describe 'CardStore', ->
 
   describe ".save", ->
 
-    it 'saves a json representation of the cards', ->
+    it 'saves to the cards key in local storage', ->
       cards = new global.Cards([
         { foo: 'bar' },
         { baz: 'chirp' }
@@ -29,7 +29,6 @@ describe 'CardStore', ->
       store.save( cards )
 
       expect( fakeLocalStorage.keys() ).toEqual( ['cards'] )
-      expect( fakeLocalStorage.getItem('cards') ).toEqual( cardsJson )
 
 
   describe '.load', ->
@@ -44,9 +43,7 @@ describe 'CardStore', ->
       reloadedCards = store.load()
       expect( reloadedCards.toJSON ).toEqual( origCards.toJSON )
 
-
     it 'handles a store with no cards', ->
       expect( fakeLocalStorage.getItem('cards') ).not.toBeDefined()
       loadedCards = store.load()
       expect( loadedCards.models ).toEqual( [] )
-      
