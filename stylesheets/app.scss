@@ -1,7 +1,8 @@
 $background-color: #eee;
 $dark-gray: lighten(black,30%);
-$dark-gray: darken(white,10%);
+$dark-white: darken(white,10%);
 $yellow: transparentize(#ffc,0.1);
+$light-yellow: lighten($yellow, 5%);
 
 $font-cursive:"Shadows Into Light Two",arial,sans-serif;  
 
@@ -57,6 +58,13 @@ letter-spacing: -3;
   -moz-box-shadow:5px 5px 20px rgba(33,33,33,1);  
   -webkit-box-shadow: 5px 5px 20px rgba(33,33,33,.7);  
   box-shadow: 5px 5px 20px rgba(33,33,33,.7);  
+
+  &.editing {
+    background:$light-yellow;
+    -moz-box-shadow:    15px 15px 45px rgba(33, 33, 33, 0.7);
+    -webkit-box-shadow: 15px 15px 45px rgba(33, 33, 33, 0.7);
+    box-shadow:         15px 15px 45px rgba(33, 33, 33, 0.7);
+  }
 
   p {
     margin: 0;

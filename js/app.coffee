@@ -28,6 +28,7 @@ global.CardView = Backbone.View.extend
   
   events:
     "click p": "onClickText"
+    "input p": "onChangeText"
 
   template: Handlebars.compile """
     <div class="curr-vote">{{vote}}</div>
@@ -43,13 +44,23 @@ global.CardView = Backbone.View.extend
     @
 
   updateEditState: ->
-    if @model.get('inEditState')
-      @$el.find('p').attr('contenteditable', '')
+    editing = @model.get('inEditState')
+    @$el.toggleClass('editing',editing)
+
+    if editing
+      @$textPara().attr('contenteditable', '')
     else
-      @$el.find('p').removeAttr('contenteditable')
+      @$textPara().removeAttr('contenteditable')
 
   onClickText: ->
     @model.textClicked()
+
+  onChangeText: ->
+    @model.set('text',@$textPara().text())
+
+  $textPara: ->
+    @$el.find('p')
+
 
 global.NewCardView = Backbone.View.extend
   el: "section#new-card"

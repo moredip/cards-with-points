@@ -14,16 +14,26 @@ describe 'CardView', ->
     view = createView( new Card(vote:12) )
     expect( view.render().$el.find('.curr-vote') ).toHaveText("12")
 
-  it 'sets contenteditable based on its models inEditState', ->
+  it "sets contenteditable based on its model's inEditState", ->
     model = new Card
-    view = createView(model)
-    view.render()
+    view = createView(model).render()
 
-    expect(view.$el.find('p').attr('contenteditable')).not.toBeDefined()
+    $textPara = view.$el.find('p')
+    expect( $textPara ).not.toHaveAttr('contenteditable')
     model.set('inEditState',true)
-    expect(view.$el.find('p').attr('contenteditable')).toBeDefined()
+    expect( $textPara ).toHaveAttr('contenteditable')
     model.set('inEditState',false)
-    expect(view.$el.find('p').attr('contenteditable')).not.toBeDefined()
+    expect( $textPara ).not.toHaveAttr('contenteditable')
+
+  it "sets editing class based on the its model's inEditState", ->
+    model = new Card
+    view = createView(model).render()
+
+    expect(view.$el).not.toHaveClass('editing')
+    model.set('inEditState',true)
+    expect(view.$el).toHaveClass('editing')
+    model.set('inEditState',false)
+    expect(view.$el).not.toHaveClass('editing')
 
 
   it 'tells its model when its text was clicked', ->
@@ -34,3 +44,14 @@ describe 'CardView', ->
     view.render().$el.find('p').click()
 
     expect( fakeModel.textClicked ).toHaveBeenCalled()
+
+  it 'updates its model whenever its text is editted', ->
+    model = new Card()
+    view = createView(model).render()
+
+    view.$el.find('p')
+      .click()
+      .text('new text <3 content')
+      .trigger('input')
+
+    expect( model.get('text') ).toEqual('new text <3 content')
