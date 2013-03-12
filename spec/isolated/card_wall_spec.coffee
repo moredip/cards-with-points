@@ -25,18 +25,31 @@ describe 'CardWall', ->
     cardWall.addCard()
     expect( eventSpy.called ).toBe(true)
 
-  it 'reacts to a card being asked to be edited by telling all other cards to conclude their editing', ->
 
-    editStates = -> cards.pluck('inEditState')
+  cardEditStates = -> cards.pluck('inEditState')
+
+  it 'reacts to a card being asked to be edited by telling all other cards to conclude their editing', ->
 
     cards.add( [{},{},{},{}] )
 
-    expect( editStates() ).toEqual( [false,false,false,false] )
+    expect( cardEditStates() ).toEqual( [false,false,false,false] )
 
     cards.at([2]).textClicked()
 
-    expect( editStates() ).toEqual( [false,false,true,false] )
+    expect( cardEditStates() ).toEqual( [false,false,true,false] )
 
     cards.at([1]).textClicked()
 
-    expect( editStates() ).toEqual( [false,true,false,false] )
+    expect( cardEditStates() ).toEqual( [false,true,false,false] )
+
+  it 'takes all cards out of editing state when the background is clicked', ->
+    cards.add( [{},{},{},{}] )
+    cards.at(1).set('inEditState',true)
+
+    expect( cardEditStates() ).toContain( true )
+
+    Backbone.trigger('background-clicked')
+
+    expect( cardEditStates() ).not.toContain( true )
+
+

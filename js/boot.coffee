@@ -1,7 +1,11 @@
 window.global = window
 
+
 $ ->
   return if window.PERFORMING_INTEGRATION_TESTS
+
+  $('body').click ->
+    Backbone.trigger('background-clicked')
 
   newCardView = new NewCardView
   newCardView.on 'create-card', -> console.log 'new card being added'
@@ -10,8 +14,8 @@ $ ->
   cards = cardStore.load()
 
   if cards.isEmpty()
-    cards.add(text:'a sample card to get you going',vote:-1)
-    cards.add(text:'another card with some text',vote:3)
+    cards.add(text:'a sample card to get you going')
+    cards.add(text:'another card with some text')
 
   cardWall = new CardWall( cards: cards )
   cardWallView = new CardWallView(model:cardWall)

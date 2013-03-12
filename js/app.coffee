@@ -18,6 +18,9 @@ global.CardWall = Backbone.Model.extend
       cards.invoke('set','inEditState',false)
       requestedCard.set('inEditState',true)
 
+    Backbone.on 'background-clicked', ->
+      cards.invoke('set','inEditState',false)
+
   addCard: (args)->
     @get('cards').add( args )
     @trigger('change:cards')
@@ -52,7 +55,8 @@ global.CardView = Backbone.View.extend
     else
       @$textPara().removeAttr('contenteditable')
 
-  onClickText: ->
+  onClickText: (e)->
+    e.stopPropagation()
     @model.textClicked()
 
   onChangeText: ->
